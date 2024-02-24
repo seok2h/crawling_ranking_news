@@ -47,7 +47,7 @@ for x in range(7):
             # news_dict[company_name] = e
             titles = elem.find_all("a", attrs={"class": "list_title nclicks('RBP.rnknws')"})
             title_list = [title.get_text() for title in titles]
-            news_dict[company_name] = title_list
+            news_dict[company_name] = '\n'.join(title_list)
             data.loc[date.strftime("%Y-%m-%d")] = pd.Series(data=news_dict, dtype=object)
 
         else:
