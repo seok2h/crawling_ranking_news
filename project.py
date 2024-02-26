@@ -46,7 +46,8 @@ for x in range(7):
         if company_name in company_list:
             # news_dict[company_name] = e
             titles = elem.find_all("a", attrs={"class": "list_title nclicks('RBP.rnknws')"})
-            title_list = [title.get_text() for title in titles]
+            
+            title_list = [f'{idx+1}. {title.get_text()}' for idx, title in enumerate(titles) if idx < 3]
             news_dict[company_name] = '\n'.join(title_list)
             data.loc[date.strftime("%Y-%m-%d")] = pd.Series(data=news_dict, dtype=object)
 
@@ -54,6 +55,6 @@ for x in range(7):
             continue
 
     date -= dt.timedelta(days=1)
-print(data.dtypes)
+# print(data.dtypes)
 data.to_csv('data.csv', encoding='utf-8')
     # input("종료하려면 Enter를 입력하세요")
